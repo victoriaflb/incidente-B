@@ -43,3 +43,12 @@ INSERT INTO eventos DEFAULT VALUES RETURNING id;
 ![alt text](evidencias/03-promocao-t1.png)
 
 ![alt text](evidencias/02-t0-queda.png)
+
+## Correção
+
+- **O que a aplicação precisa mudar:** apontar a conexão para a porta **5443** (a réplica promovida), em vez da 5442. Em produção, isso seria feito por DNS, IP virtual ou proxy, para não depender de alterar a aplicação.
+- **O que impede o servidor antigo de voltar como primário sem ser reconstruído:**
+  - A promoção abriu uma nova *timeline*, e o antigo ficou na anterior: os históricos divergiram.
+  - Ele pode ter confirmado linhas que a réplica nunca recebeu. Se voltasse como primário, haveria dois primários aceitando escrita (*split-brain*).
+  - No cenário, o disco foi criptografado pelo ransomware e não é confiável.
+  - Só volta como **réplica do novo primário**, refeito com `pg_basebackup` (ou `pg_rewind`, se o disco estivesse íntegro).
