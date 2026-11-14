@@ -41,3 +41,5 @@ INSERT INTO eventos DEFAULT VALUES RETURNING id;
 - **Evidências:** `evidencias/02-t0-queda.png` e `evidencias/03-promocao-t1.png`.
 
 ![alt text](evidencias/03-promocao-t1.png)
+
+![alt text](evidencias/02-t0-queda.png)
