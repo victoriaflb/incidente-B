@@ -1,7 +1,4 @@
-# incidentes_bancos
-
-
-Cenário B — Servidor principalfora do ar (ransomware) Situação. Um ransomware criptografa o disco do banco principal em pleno horário de pico. Existe uma réplica. 
+# Cenário B — Servidor principalfora do ar (ransomware) Situação. Um ransomware criptografa o disco do banco principal em pleno horário de pico. Existe uma réplica. 
 
 Reproduza. 
 
