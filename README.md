@@ -95,3 +95,7 @@ O RPO seria maior com:
 **Promoção da réplica e T1 (11:34:09)**
 
 ![Promoção e T1](evidencias/03-promocao-t1.png)
+
+## 🐳 Extra: imagem no Docker Hub
+
+`docker pull elsacomunista/incidente-b-postgres:1.0`
