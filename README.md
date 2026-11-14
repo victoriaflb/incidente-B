@@ -52,3 +52,11 @@ INSERT INTO eventos DEFAULT VALUES RETURNING id;
   - Ele pode ter confirmado linhas que a réplica nunca recebeu. Se voltasse como primário, haveria dois primários aceitando escrita (*split-brain*).
   - No cenário, o disco foi criptografado pelo ransomware e não é confiável.
   - Só volta como **réplica do novo primário**, refeito com `pg_basebackup` (ou `pg_rewind`, se o disco estivesse íntegro).
+
+  ## Respostas
+
+**O que o RTO medido incluiu e deixou de fora?**
+Incluiu apenas o intervalo entre a queda e a primeira escrita aceita no novo primário, feito manualmente (promoção e INSERT). Ficaram de fora: a **detecção** da falha (aqui eu sabia que ia cair), a **decisão** de promover, a mudança de **DNS/endereço** e a **reconexão da aplicação**. Em um incidente real, o RTO seria maior que 15 s.
+
+**A replicação é assíncrona: por que o RPO deu esse valor e quando seria maior?**
+Na replicação assíncrona o primário confirma o commit sem esperar a réplica. O RPO deu 0 porque a carga era baixa (cerca de 10 inserts por segundo) e a rede é local, então a réplica recebeu o WAL em milissegundos. Isso não é garantia. Seria maior com atraso de replicação (rede lenta ou réplica sobrecarregada), carga de escrita alta ou cargas em lote, ou com a réplica desconectada antes da queda.
