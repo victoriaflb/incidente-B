@@ -39,3 +39,5 @@ INSERT INTO eventos DEFAULT VALUES RETURNING id;
 - **Verificação dos dados:** `SELECT max(id) FROM eventos;` retornou 188, igual ao último id confirmado antes da queda. Nenhuma linha foi perdida (RPO = 0).
 - **Observação sobre os ids:** o primeiro INSERT no novo primário recebeu o id 199, e não 189. A sequência `bigserial` reserva ids em blocos, então o salto na numeração não indica perda de linhas.
 - **Evidências:** `evidencias/02-t0-queda.png` e `evidencias/03-promocao-t1.png`.
+
+![alt text](evidencias/03-promocao-t1.png)
